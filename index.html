@@ -222,14 +222,15 @@
   }
   @media (max-width:560px){
     .wrap{width:calc(100% - 32px)}
-    [id]{scroll-margin-top:158px}
-    /* Top bar: wordmark di atas, navigasi jadi kisi 2×2 yang mudah diketuk */
-    .topbar-in{flex-direction:column;align-items:stretch;gap:8px;padding:12px 0}
+    [id]{scroll-margin-top:64px}
+    /* Top bar HP: wordmark sebaris dengan tombol Mutiara & Rubrik, spasi dirapatkan */
+    .topbar-in{flex-direction:row;align-items:center;gap:8px;padding:8px 0}
+    .wordmark{font-size:1.25rem}
     .wordmark small{display:none}
-    .nav{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%}
-    .nav > a,.nav-drop-btn{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 6px;font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;text-align:center;width:100%}
+    .nav{display:flex;gap:6px;width:auto;flex:0 0 auto}
+    .nav > a,.nav-drop-btn{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:7px 10px;font-size:.85rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;text-align:center;width:auto}
     .nav > a:hover,.nav-drop-btn:hover{background:var(--surface-2)}
-    .nav-item{display:flex}
+    .nav-item{display:block}
     .drop-menu{top:calc(100% + 4px);min-width:min(216px,78vw)}
     .nav-item:first-child .drop-menu{left:0;right:auto}
     .drop-menu a{padding:11px 12px;white-space:normal}
