@@ -288,6 +288,42 @@
 </header>
 
 <main id="beranda">
+<!-- CUPLIKAN: daftar Tulisan (dikelola lewat /admin, sumber: tulisan.json).
+     Ditempatkan di awal <main>, sebelum Hero, supaya tulisan terbaru
+     langsung terlihat di tampilan awal. Urutan: terbaru dulu. -->
+
+<section id="tulisan">
+  <h2>Tulisan</h2>
+  <div id="daftar-tulisan">Memuat tulisan…</div>
+</section>
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  var wadah = document.getElementById("daftar-tulisan");
+  fetch("/tulisan.json")
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var daftar = (data && data.daftar) || [];
+      if (!daftar.length) {
+        wadah.innerHTML = "<p>Belum ada tulisan.</p>";
+        return;
+      }
+      wadah.innerHTML = daftar.slice().reverse().map(function (t) {
+        var isi = esc(t.isi).replace(/\n/g, "<br>");
+        return "<article><h3>" + esc(t.judul) + "</h3>"
+          + "<p><small>" + esc(t.tanggal) + " · " + esc(t.rubrik) + "</small></p>"
+          + "<div>" + isi + "</div></article>";
+      }).join("");
+    })
+    .catch(function () {
+      wadah.innerHTML = "<p>Tulisan belum tersedia.</p>";
+    });
+})();
+</script>
+
   <!-- ================= HERO ================= -->
   <div class="wrap hero">
     <div class="hero-grid">
@@ -606,42 +642,7 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-<!-- CUPLIKAN: tempelkan ke dalam index.html situs Lesehan (di repo Git),
-     di bagian badan halaman, mis. setelah bagian Rubrik.
-     Fungsinya: membaca tulisan.json (yang dikelola lewat /admin) dan
-     menampilkannya sebagai daftar Tulisan di situs live. -->
 
-<section id="tulisan">
-  <h2>Tulisan</h2>
-  <div id="daftar-tulisan">Memuat tulisan…</div>
-</section>
-<script>
-(function () {
-  function esc(s) {
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-  var wadah = document.getElementById("daftar-tulisan");
-  fetch("/tulisan.json")
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var daftar = (data && data.daftar) || [];
-      if (!daftar.length) {
-        wadah.innerHTML = "<p>Belum ada tulisan.</p>";
-        return;
-      }
-      wadah.innerHTML = daftar.map(function (t) {
-        var isi = esc(t.isi).replace(/\n/g, "<br>");
-        return "<article><h3>" + esc(t.judul) + "</h3>"
-          + "<p><small>" + esc(t.tanggal) + " · " + esc(t.rubrik) + "</small></p>"
-          + "<div>" + isi + "</div></article>";
-      }).join("");
-    })
-    .catch(function () {
-      wadah.innerHTML = "<p>Tulisan belum tersedia.</p>";
-    });
-})();
-</script>
 
 </body>
 </html>
