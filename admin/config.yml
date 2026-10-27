@@ -1,0 +1,38 @@
+# Konfigurasi Decap CMS untuk lesehan.my.id
+# Backend git-gateway: login lewat Netlify Identity (diaktifkan di dashboard Netlify),
+# perubahan disimpan sebagai commit ke repo Git yang terhubung ke Netlify site,
+# lalu Netlify otomatis memperbarui situs live.
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Folder media (tidak wajib diisi untuk tulisan teks saja)
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "tulisan"
+    label: "Tulisan"
+    files:
+      - name: "daftar"
+        label: "Daftar Tulisan"
+        file: "tulisan.json"
+        fields:
+          - label: "Daftar"
+            name: "daftar"
+            widget: "list"
+            fields:
+              - { label: "Judul", name: "judul", widget: "string" }
+              - { label: "Tanggal", name: "tanggal", widget: "datetime" }
+              - label: "Rubrik"
+                name: "rubrik"
+                widget: "select"
+                options:
+                  - "Esai Ringan"
+                  - "Opini"
+                  - "Refleksi"
+                  - "Catatan Kampus"
+                  - "Hikmah"
+                  - "Cerita Sehari-hari"
+              - { label: "Isi", name: "isi", widget: "text" }
