@@ -109,6 +109,15 @@
   .hero-note{font-family:"Lora",serif;font-style:italic;font-size:1rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:18px}
   /* Mutiara */
   .mutiara-panel{background:var(--green);color:#fff;border-radius:16px;padding:clamp(30px,5vw,52px) clamp(22px,5vw,56px);outline:1px solid rgba(217,169,79,.55);outline-offset:-10px;box-shadow:var(--shadow)}
+  .artikel-panel{background:#f7ecd0;color:#21281f;border-radius:16px;padding:clamp(30px,5vw,52px) clamp(22px,5vw,56px);outline:1px solid var(--gold);outline-offset:-10px;box-shadow:var(--shadow)}
+  .artikel-panel .artikel-kicker{font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);margin:0 0 12px}
+  .artikel-panel h3{font-family:"Lora",serif;font-size:clamp(1.35rem,2.6vw,1.7rem);line-height:1.35;margin:0 0 10px}
+  .artikel-panel .artikel-meta{font-size:.85rem;color:#47544a;margin:0 0 22px}
+  .artikel-panel .artikel-isi{line-height:1.75;max-width:46rem}
+  #daftar-artikel-sebelumnya details{border-top:1px solid var(--line);padding:14px 0}
+  #daftar-artikel-sebelumnya summary{cursor:pointer;font-weight:700}
+  #daftar-artikel-sebelumnya summary small{font-weight:400;color:var(--ink-faint)}
+  #daftar-artikel-sebelumnya details div{margin-top:10px;line-height:1.7}
   .mutiara-panel h2{color:#fff;margin:0 0 10px}
   .mutiara-date{font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 20px}
   .mutiara-quote{font-family:"Lora",serif;font-size:clamp(1.22rem,2.4vw,1.42rem);line-height:1.55;margin:0 0 18px;max-width:46rem}
@@ -234,6 +243,7 @@
     .hero-fig figcaption{font-size:.8rem}
     /* Panel mutiara di HP */
     .mutiara-panel{padding:28px 20px;outline-offset:-7px}
+    .artikel-panel{padding:28px 20px;outline-offset:-7px}
     .mutiara-actions .btn{width:100%;justify-content:center;min-height:48px}
     .semangat{flex-direction:column;gap:10px}
     /* Kartu & daftar */
@@ -288,40 +298,7 @@
 </header>
 
 <main id="beranda">
-<!-- CUPLIKAN: daftar Tulisan (dikelola lewat /admin, sumber: tulisan.json).
-     Ditempatkan di awal <main>, sebelum Hero, supaya tulisan terbaru
-     langsung terlihat di tampilan awal. Urutan: terbaru dulu. -->
 
-<section id="tulisan">
-  <div id="daftar-tulisan">Memuat tulisan…</div>
-</section>
-<script>
-(function () {
-  function esc(s) {
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-  var wadah = document.getElementById("daftar-tulisan");
-  fetch("/tulisan.json")
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var daftar = (data && data.daftar) || [];
-      if (!daftar.length) {
-        wadah.innerHTML = "<p>Belum ada tulisan.</p>";
-        return;
-      }
-      wadah.innerHTML = daftar.slice().reverse().map(function (t) {
-        var isi = esc(t.isi).replace(/\n/g, "<br>");
-        return "<article><h3>" + esc(t.judul) + "</h3>"
-          + "<p><small>" + esc(t.tanggal) + " · " + esc(t.rubrik) + "</small></p>"
-          + "<div>" + isi + "</div></article>";
-      }).join("");
-    })
-    .catch(function () {
-      wadah.innerHTML = "<p>Tulisan belum tersedia.</p>";
-    });
-})();
-</script>
 
   <!-- ================= HERO ================= -->
   <div class="wrap hero">
@@ -339,6 +316,13 @@
   </div>
 
   <!-- ================= MUTIARA ================= -->
+  <!-- ================= ARTIKEL TERBARU ================= -->
+  <section id="artikel-terbaru" style="padding-top:28px">
+    <div class="wrap">
+      <div class="artikel-panel" id="artikel-terbaru-card">Memuat artikel terbaru…</div>
+    </div>
+  </section>
+
   <section id="mutiara" style="padding-top:28px">
     <div class="wrap">
       <div class="mutiara-panel">
@@ -459,6 +443,17 @@
         </article>
       </div>
       <p class="sos-note" id="sos-note" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ================= ARTIKEL SEBELUMNYA ================= -->
+  <section id="artikel-sebelumnya" style="display:none">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Arsip</p>
+        <h2>Artikel Sebelumnya</h2>
+      </div>
+      <div id="daftar-artikel-sebelumnya"></div>
     </div>
   </section>
 </main>
@@ -641,6 +636,53 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
+
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  var BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  function fmtTanggal(t) {
+    try {
+      var m = String(t).match(/(\d{4})-(\d{2})-(\d{2})/);
+      if (!m) return esc(t);
+      return parseInt(m[3], 10) + " " + BULAN[parseInt(m[2], 10) - 1] + " " + m[1];
+    } catch (e) { return esc(t); }
+  }
+  function isiHTML(t) {
+    return esc(t.isi).replace(/\n/g, "<br>");
+  }
+  var kartu = document.getElementById("artikel-terbaru-card");
+  var arsipSec = document.getElementById("artikel-sebelumnya");
+  var arsipWadah = document.getElementById("daftar-artikel-sebelumnya");
+  fetch("/tulisan.json")
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var daftar = (data && data.daftar) || [];
+      if (!daftar.length) {
+        document.getElementById("artikel-terbaru").style.display = "none";
+        return;
+      }
+      var terbaru = daftar[daftar.length - 1];
+      kartu.innerHTML = "<p class=\"artikel-kicker\">Artikel Terbaru</p>"
+        + "<h3>" + esc(terbaru.judul) + "</h3>"
+        + "<p class=\"artikel-meta\">" + fmtTanggal(terbaru.tanggal) + " · " + esc(terbaru.rubrik) + "</p>"
+        + "<div class=\"artikel-isi\">" + isiHTML(terbaru) + "</div>";
+      var lama = daftar.slice(0, -1).reverse();
+      if (lama.length && arsipWadah) {
+        arsipWadah.innerHTML = lama.map(function (t) {
+          return "<details><summary>" + esc(t.judul) + " <small>" + fmtTanggal(t.tanggal) + " · " + esc(t.rubrik) + "</small></summary><div>" + isiHTML(t) + "</div></details>";
+        }).join("");
+        arsipSec.style.display = "";
+      }
+    })
+    .catch(function () {
+      kartu.innerHTML = "<p>Artikel belum tersedia.</p>";
+    });
+})();
+</script>
 
 </body>
 </html>
