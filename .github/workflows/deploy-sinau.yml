@@ -1,0 +1,32 @@
+name: Deploy Portal ke Sinau
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'portal.zip'
+  workflow_dispatch:
+jobs:
+  ftp-deploy-sinau:
+    name: FTP Deploy Sinau
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Siapkan file portal
+        run: |
+          rm -rf portal-dist
+          unzip -o portal.zip -d portal-dist
+      - name: FTP Deploy Sinau
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./portal-dist/
+          server-dir: public_html/sinau.lesehan.my.id/
+          dangerous-clean-slate: false
+          exclude: |
+            **/BACA-DULU.txt

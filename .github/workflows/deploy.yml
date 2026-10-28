@@ -26,3 +26,4 @@ jobs:
             **/.github/**
             admin/**
             **/admin/**
+            portal.zip
