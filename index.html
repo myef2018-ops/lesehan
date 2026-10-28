@@ -481,6 +481,7 @@
     </div>
     <div class="foot-bottom">
       <span>© <span id="year">2026</span> Miftah Arifin · lesehan.my.id</span>
+      <span id="pengunjung" hidden>Total kunjungan: <b id="pengunjung-angka">…</b></span>
       <span>Jember, Jawa Timur</span>
     </div>
   </div>
@@ -661,6 +662,22 @@
       kartu.innerHTML = "<p>Artikel belum tersedia.</p>";
     });
 })();
+</script>
+<script>
+/* Penghitung kunjungan: menambah angka lewat counter.php, lalu menampilkannya.
+   Jika endpoint tidak terjangkau (mis. salinan Netlify tanpa PHP), angka tetap tersembunyi. */
+fetch("counter.php", {cache: "no-store"})
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    if (!d || typeof d.count !== "number") return;
+    var el = document.getElementById("pengunjung");
+    var angka = document.getElementById("pengunjung-angka");
+    if (el && angka) {
+      angka.textContent = d.count.toLocaleString("id-ID");
+      el.hidden = false;
+    }
+  })
+  .catch(function () {});
 </script>
 
 </body>
