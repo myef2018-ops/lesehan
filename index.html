@@ -325,10 +325,10 @@
     <div class="wrap">
       <div class="mutiara-panel">
         <h2>Mutiara hari ini</h2>
-        <p class="mutiara-date">Tentang memaafkan · 30 Oktober 2026</p>
-        <p class="mutiara-quote">Memaafkan bukan berarti melupakan luka, melainkan membebaskan hati dari beban yang mengikatnya — lapang dada adalah hadiah terbaik untuk dirimu sendiri.</p>
-        <p class="mutiara-ar" dir="rtl" lang="ar">مَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا</p>
-        <p class="mutiara-tr">“Tidaklah Allah menambah kepada seorang hamba yang memaafkan, kecuali kemuliaan.” — HR. Muslim</p>
+        <p class="mutiara-date">Tentang qana'ah · 1 November 2026</p>
+        <p class="mutiara-quote">Bahagia bukan tentang memiliki segalanya, melainkan merasa cukup dengan apa yang Allah titipkan — hati yang qana'ah menemukan ketenangan di mana pun ia berada.</p>
+        <p class="mutiara-ar" dir="rtl" lang="ar">قَدْ أَفْلَحَ مَنْ أَسْلَمَ وَرُزِقَ كَفَافًا وَقَنَّعَهُ اللَّهُ بِمَا آتَاهُ</p>
+        <p class="mutiara-tr">“Sungguh beruntung orang yang masuk Islam, diberi rezeki yang cukup, dan Allah menjadikannya merasa cukup dengan apa yang diberikan kepadanya.” — HR. Muslim</p>
         <div class="mutiara-actions">
           <button class="btn btn-light" type="button" id="salin-kutipan">Salin Kutipan</button>
           <a class="btn btn-outline-w" href="https://www.instagram.com/miftah_jbr" target="_blank" rel="noopener">Lihat di Instagram @miftah_jbr</a>
@@ -337,7 +337,7 @@
         <div class="semangat" id="penyemangat">
           <span class="badge">Penyemangat</span>
           <div>
-            <p>Tidak semua hari berjalan sesuai rencana, tetapi setiap usaha yang dijalani dengan tulus tetap punya nilai — dan dari ketulusan itulah ketenangan perlahan tumbuh.</p>
+            <p>Kebaikan kecil yang dilakukan dengan konsisten sering kali membawa perubahan yang lebih besar daripada yang kita kira — maka teruslah menanam kebaikan, meski hasilnya belum terlihat hari ini.</p>
             <span class="note">Kalimat penyemangat — ditulis untuk semua orang, agar bisa dibagikan kepada siapa saja.</span>
           </div>
         </div>
@@ -597,7 +597,7 @@
     var btn = document.getElementById("salin-kutipan");
     var status = document.getElementById("copy-status");
     if (!btn || !status) return;
-    var text = "Memaafkan bukan berarti melupakan luka, melainkan membebaskan hati dari beban yang mengikatnya — lapang dada adalah hadiah terbaik untuk dirimu sendiri.\n\nمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلَّا عِزًّا\n\n“Tidaklah Allah menambah kepada seorang hamba yang memaafkan, kecuali kemuliaan.” — HR. Muslim\n\n— Mutiara hari ini, Lesehan (lesehan.my.id)";
+    var text = "Bahagia bukan tentang memiliki segalanya, melainkan merasa cukup dengan apa yang Allah titipkan — hati yang qana'ah menemukan ketenangan di mana pun ia berada.\n\nقَدْ أَفْلَحَ مَنْ أَسْلَمَ وَرُزِقَ كَفَافًا وَقَنَّعَهُ اللَّهُ بِمَا آتَاهُ\n\n“Sungguh beruntung orang yang masuk Islam, diberi rezeki yang cukup, dan Allah menjadikannya merasa cukup dengan apa yang diberikan kepadanya.” — HR. Muslim\n\n— Mutiara hari ini, Lesehan (lesehan.my.id)";
     function done(ok){
       status.textContent = ok ? "Kutipan tersalin — silakan dibagikan." : "Tidak dapat menyalin otomatis; tekan dan tahan teks kutipan untuk menyalinnya.";
     }
