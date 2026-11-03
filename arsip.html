@@ -213,7 +213,7 @@
     } catch (e) { return esc(t); }
   }
   function isiHTML(t) {
-    return esc(t.isi).replace(/\n/g, "<br>");
+    return esc(t.isi).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
   }
   var wadah = document.getElementById("daftar-arsip-tulisan");
   if (wadah) {
