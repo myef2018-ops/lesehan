@@ -213,7 +213,10 @@
     } catch (e) { return esc(t); }
   }
   function isiHTML(t) {
-    return esc(t.isi).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
+    var paras = Array.isArray(t.isi) ? t.isi : String(t.isi == null ? "" : t.isi).split(/\n\s*\n/);
+    return paras.map(function (p) {
+      return "<p>" + esc(p).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\n/g, "<br>") + "</p>";
+    }).join("");
   }
   var wadah = document.getElementById("daftar-arsip-tulisan");
   if (wadah) {
