@@ -149,6 +149,15 @@
   .rubrik-more{display:block;margin-top:10px;padding:10px 14px;background:var(--surface-2);border-radius:10px;font-size:.94rem;line-height:1.5;color:var(--ink-soft)}
   .rubrik-more[hidden]{display:none}
   .rubrik[aria-expanded="true"] .rubrik-more{animation:rubrik-in .25s ease}
+  .rubrik-articles{grid-column:1/-1;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+  .rubrik-articles[hidden]{display:none}
+  .rubrik-list-head{font-weight:700;margin:0 0 6px}
+  .rubrik-list-note{color:var(--ink-soft);margin:0}
+  .rubrik-articles details{border-top:1px solid var(--line);padding:10px 0}
+  .rubrik-articles details:first-of-type{border-top:0}
+  .rubrik-articles summary{cursor:pointer;font-weight:700;line-height:1.5}
+  .rubrik-articles summary .artikel-meta{font-weight:400;font-size:.85rem;color:var(--ink-soft)}
+  .rubrik-articles .artikel-isi{margin-top:10px;line-height:1.6;text-align:justify}
   @keyframes rubrik-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
   /* Tulisan */
   .tulisan-box{background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:clamp(26px,4vw,44px);text-align:center}
@@ -351,31 +360,37 @@
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Tulisan pendek yang berangkat dari hal-hal kecil sehari-hari — dibaca sekali duduk, tetapi semoga tinggalnya lama di kepala.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
         <button class="rubrik" type="button" aria-expanded="false">
           <span class="num">— dua</span><h3>Opini</h3><p>Pandangan atas isu yang sedang berjalan.</p>
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Sikap dan pandangan atas isu pendidikan, keagamaan, dan kehidupan kampus — disampaikan terbuka, dengan argumen yang bisa diperdebatkan.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
         <button class="rubrik" type="button" aria-expanded="false">
           <span class="num">— tiga</span><h3>Refleksi</h3><p>Renungan pelan-pelan, untuk diri sendiri terlebih dahulu.</p>
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Perenungan yang lebih sunyi: tentang ilmu, umur, amanah, dan perjalanan menjadi manusia yang terus belajar.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
         <button class="rubrik" type="button" aria-expanded="false">
           <span class="num">— empat</span><h3>Catatan Kampus</h3><p>Dari kelas, bimbingan, dan kehidupan akademik.</p>
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Catatan dari ruang kuliah, rapat, dan koridor Pascasarjana — tentang mutu, mengajar, membimbing, dan menjaga marwah perguruan tinggi.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
         <button class="rubrik" type="button" aria-expanded="false">
           <span class="num">— lima</span><h3>Hikmah</h3><p>Kata mutiara dan petikan yang menenangkan hati.</p>
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Petikan hikmah dari Al-Qur'an, hadis, dan para ulama — disertai terjemahan dan catatan singkat mengapa petikan itu penting hari ini.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
         <button class="rubrik" type="button" aria-expanded="false">
           <span class="num">— enam</span><h3>Cerita Sehari-hari</h3><p>Kisah kecil yang singgah di tengah kesibukan.</p>
           <span class="rubrik-toggle"><span class="chev" aria-hidden="true">▾</span></span>
           <span class="rubrik-more" hidden>Kisah-kisah kecil dari rumah, perjalanan, dan perjumpaan dengan orang-orang biasa yang sering justru mengajarkan hal luar biasa.</span>
         </button>
+          <div class="rubrik-articles" hidden><p class="rubrik-list-note">Memuat daftar artikel…</p></div>
       </div>
     </div>
   </section>
@@ -576,6 +591,8 @@
       card.setAttribute("aria-expanded", open ? "true" : "false");
       var more = card.querySelector(".rubrik-more");
       if (more) more.hidden = !open;
+      var list = card.nextElementSibling;
+      if (list && list.classList.contains("rubrik-articles")) list.hidden = !open;
     }
     cards.forEach(function(card){
       card.addEventListener("click", function(){
@@ -646,6 +663,26 @@
         document.getElementById("artikel-terbaru").style.display = "none";
         return;
       }
+      var cards = document.querySelectorAll(".rubrik");
+      cards.forEach(function(card){
+        var list = card.nextElementSibling;
+        if (!list || !list.classList.contains("rubrik-articles")) return;
+        var h3 = card.querySelector("h3");
+        var nama = h3 ? h3.textContent.trim() : "";
+        var punya = [];
+        for (var k = daftar.length - 1; k >= 0; k--) {
+          if (daftar[k].rubrik === nama) punya.push(daftar[k]);
+        }
+        if (!punya.length) {
+          list.innerHTML = "<p class=\"rubrik-list-head\">Artikel di rubrik " + esc(nama) + ":</p><p class=\"rubrik-list-note\">Belum ada artikel di rubrik ini.</p>";
+          return;
+        }
+        var out = "<p class=\"rubrik-list-head\">Artikel di rubrik " + esc(nama) + ":</p>";
+        punya.forEach(function(t){
+          out += "<details><summary>" + esc(t.judul) + " <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></summary><div class=\"artikel-isi\">" + isiHTML(t) + "</div></details>";
+        });
+        list.innerHTML = out;
+      });
       var terbaru = daftar[daftar.length - 1];
       kartu.innerHTML = "<p class=\"artikel-kicker\">Artikel Terbaru</p>"
         + "<h3>" + esc(terbaru.judul) + "</h3>"
@@ -654,6 +691,9 @@
     })
     .catch(function () {
       kartu.innerHTML = "<p>Artikel belum tersedia.</p>";
+      document.querySelectorAll(".rubrik-articles").forEach(function(list){
+        list.innerHTML = "<p class=\"rubrik-list-note\">Daftar artikel belum tersedia.</p>";
+      });
     });
 })();
 </script>
