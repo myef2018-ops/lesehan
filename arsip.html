@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
-<meta name="description" content="Arsip Lesehan — semua tulisan dan mutiara yang pernah tayang, dikelompokkan sesuai kategorinya." />
+<meta name="description" content="Arsip Lesehan — semua tulisan, mutiara, dan kalimat penyemangat yang pernah tayang, dikelompokkan sesuai kategorinya." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://lesehan.my.id/arsip.html" />
 <meta property="og:title" content="Arsip — Lesehan" />
-<meta property="og:description" content="Arsip Lesehan — semua tulisan dan mutiara yang pernah tayang, dikelompokkan sesuai kategorinya." />
+<meta property="og:description" content="Arsip Lesehan — semua tulisan, mutiara, dan kalimat penyemangat yang pernah tayang, dikelompokkan sesuai kategorinya." />
 <meta property="og:image" content="https://lesehan.my.id/og-image-v3.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="id_ID" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Arsip — Lesehan" />
-<meta name="twitter:description" content="Arsip Lesehan — semua tulisan dan mutiara yang pernah tayang, dikelompokkan sesuai kategorinya." />
+<meta name="twitter:description" content="Arsip Lesehan — semua tulisan, mutiara, dan kalimat penyemangat yang pernah tayang, dikelompokkan sesuai kategorinya." />
 <meta name="twitter:image" content="https://lesehan.my.id/og-image-v3.jpg" />
 <link rel="icon" href="data:," />
 <title>Arsip — Lesehan</title>
@@ -133,7 +133,7 @@
   <div class="wrap page-head">
     <p class="kicker">Arsip</p>
     <h1>Arsip Lesehan</h1>
-    <p>Semua tulisan dan mutiara yang pernah tayang di Lesehan, dikelompokkan sesuai kategorinya. Ketuk judul atau tanggalnya untuk membaca selengkapnya.</p>
+    <p>Semua tulisan, mutiara, dan kalimat penyemangat yang pernah tayang di Lesehan, dikelompokkan sesuai kategorinya. Ketuk judul atau tanggalnya untuk membaca selengkapnya.</p>
   </div>
 
   <section>
@@ -143,6 +143,16 @@
         <p>Mutiara harian, terbaru dulu.</p>
       </div>
       <div class="arsip" id="daftar-arsip-mutiara">Memuat arsip mutiara…</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Arsip Kalimat Penyemangat</h2>
+        <p>Kalimat penyemangat harian, terbaru dulu.</p>
+      </div>
+      <div class="arsip" id="daftar-arsip-penyemangat">Memuat arsip kalimat penyemangat…</div>
     </div>
   </section>
 
@@ -205,6 +215,41 @@
       })
       .catch(function () {
         wadah.innerHTML = "<p>Arsip mutiara belum tersedia.</p>";
+      });
+  }
+})();
+</script>
+
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  var BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  function fmtTanggal(t) {
+    try {
+      var m = String(t).match(/(\d{4})-(\d{2})-(\d{2})/);
+      if (!m) return esc(t);
+      return parseInt(m[3], 10) + " " + BULAN[parseInt(m[2], 10) - 1] + " " + m[1];
+    } catch (e) { return esc(t); }
+  }
+  var wadah = document.getElementById("daftar-arsip-penyemangat");
+  if (wadah) {
+    fetch("/penyemangat.json")
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var daftar = (data && data.daftar) || [];
+        if (!daftar.length) {
+          wadah.innerHTML = "<p>Belum ada arsip kalimat penyemangat.</p>";
+          return;
+        }
+        wadah.innerHTML = daftar.slice().reverse().map(function (p) {
+          return "<details><summary>" + fmtTanggal(p.tanggal) + "</summary><div><p class=\"am-quote\">" + esc(p.kalimat) + "</p></div></details>";
+        }).join("");
+      })
+      .catch(function () {
+        wadah.innerHTML = "<p>Arsip kalimat penyemangat belum tersedia.</p>";
       });
   }
 })();
