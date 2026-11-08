@@ -33,6 +33,6 @@ collections:
                   - "Opini"
                   - "Refleksi"
                   - "Catatan Kampus"
-                  - "Hikmah"
+                  - "Kosa Kata"
                   - "Cerita Sehari-hari"
               - { label: "Isi", name: "isi", widget: "text" }
