@@ -197,7 +197,7 @@
   }
   var wadah = document.getElementById("daftar-arsip-mutiara");
   if (wadah) {
-    fetch("/mutiara.json")
+    fetch("/mutiara.json", { cache: "no-cache" })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var daftar = (data && data.daftar) || [];
@@ -236,7 +236,7 @@
   }
   var wadah = document.getElementById("daftar-arsip-penyemangat");
   if (wadah) {
-    fetch("/penyemangat.json")
+    fetch("/penyemangat.json", { cache: "no-cache" })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var daftar = (data && data.daftar) || [];
@@ -277,7 +277,7 @@
   }
   var wadah = document.getElementById("daftar-arsip-tulisan");
   if (wadah) {
-    fetch("/tulisan.json")
+    fetch("/tulisan.json", { cache: "no-cache" })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var daftar = (data && data.daftar) || [];
