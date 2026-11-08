@@ -5,6 +5,10 @@
 // karena deploy tidak menghapus file yang hanya ada di server.
 header('Content-Type: application/json');
 header('Cache-Control: no-store');
+// Subdomain (sinau, ceria, lapor) juga memanggil endpoint ini, jadi izinkan
+// lintas origin. Endpoint ini publik tanpa data pribadi; angka total tetap
+// ditampilkan di beranda utama saja.
+header('Access-Control-Allow-Origin: *');
 
 $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
 if (preg_match('/bot|crawl|spider|slurp|mediapartners|adsbot|headless|curl|wget|python|facebookexternal|preview/i', $ua)) {
