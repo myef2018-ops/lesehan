@@ -261,6 +261,9 @@
     .hero-cta .btn{width:100%;justify-content:center;min-height:48px}
     .hero-note{font-size:.95rem;padding:10px 12px}
     .hero-fig figcaption{font-size:.8rem}
+    /* Gambar hero HP: selebar layar (full-bleed), sedikit lebih besar */
+    .hero-fig{margin-left:-16px;margin-right:-16px}
+    .hero-fig img{border-radius:0;outline:none}
     /* Panel mutiara di HP */
     .mutiara-panel{padding:18px 16px;outline-offset:-7px}
     .artikel-panel{padding:18px 16px;outline-offset:-7px}
@@ -282,6 +285,7 @@
   }
   @media (max-width:360px){
     .wrap{width:calc(100% - 24px)}
+    .hero-fig{margin-left:-12px;margin-right:-12px}
     h1{font-size:1.95rem}
     h2{font-size:1.55rem}
     .nav > a,.nav-drop-btn{font-size:.84rem}
