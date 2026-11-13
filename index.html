@@ -133,6 +133,7 @@
   .artikel-panel h3{font-family:"Lora",serif;font-size:clamp(1.35rem,2.6vw,1.7rem);line-height:1.25;margin:0 0 6px;font-weight:700}
   .artikel-panel .artikel-meta{font-size:.85rem;color:#47544a;margin:0 0 14px}
   .artikel-panel .artikel-isi{line-height:1.6;text-align:justify}
+  .artikel-buka{margin:16px 0 0;font-weight:700}
   .artikel-isi p{margin:0 0 12px}
   .artikel-isi p:last-child{margin-bottom:0}
   .mutiara-panel h2{color:#fff;margin:0 0 10px}
@@ -355,6 +356,7 @@
         <div class="mutiara-actions">
           <button class="btn btn-light" type="button" id="salin-kutipan">Salin Kutipan</button>
           <a class="btn btn-outline-w" href="https://www.instagram.com/miftah_jbr" target="_blank" rel="noopener">Lihat di Instagram @miftah_jbr</a>
+          <a class="btn btn-outline-w" id="tautan-mutiara" href="/arsip.html">Buka halaman mutiara ↗</a>
           <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
         </div>
         <div class="semangat" id="penyemangat">
@@ -655,6 +657,22 @@
     });
   })();
 
+  /* Tautan halaman mutiara hari ini — dihitung dari baris tanggal panel,
+     supaya ikut berubah setiap hari tanpa mengubah instruksi cron. */
+  (function(){
+    var a = document.getElementById("tautan-mutiara");
+    var d = document.querySelector(".mutiara-date");
+    if (!a || !d) return;
+    var BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    var m = d.textContent.match(/Tentang\s+(.+?)\s*·\s*(\d{1,2})\s+(\w+)\s+(\d{4})/);
+    if (!m) { a.style.display = "none"; return; }
+    var bln = BULAN.indexOf(m[3]) + 1;
+    if (!bln) { a.style.display = "none"; return; }
+    var slug = m[1].toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+    var tgl = m[4] + "-" + ("0" + bln).slice(-2) + "-" + ("0" + parseInt(m[2],10)).slice(-2);
+    a.setAttribute("href", "/mutiara/" + tgl + "-" + slug + ".html");
+  })();
+
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
@@ -673,6 +691,7 @@
       return parseInt(m[3], 10) + " " + BULAN[parseInt(m[2], 10) - 1] + " " + m[1];
     } catch (e) { return esc(t); }
   }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""); }
   function isiHTML(t) {
     var paras = Array.isArray(t.isi) ? t.isi : String(t.isi == null ? "" : t.isi).split(/\n\s*\n/);
     return paras.map(function (p) {
@@ -704,7 +723,7 @@
         }
         var out = "<p class=\"rubrik-list-head\">Artikel di rubrik " + esc(nama) + ":</p>";
         punya.forEach(function(t){
-          out += "<details><summary>" + esc(t.judul) + " <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></summary><div class=\"artikel-isi\">" + isiHTML(t) + "</div></details>";
+          out += "<details><summary>" + esc(t.judul) + " <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></summary><div class=\"artikel-isi\">" + isiHTML(t) + "<p class=\"artikel-buka\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">Buka halaman artikel ↗</a></p></div></details>";
         });
         list.innerHTML = out;
       });
@@ -712,7 +731,8 @@
       kartu.innerHTML = "<p class=\"artikel-kicker\">Artikel Terbaru</p>"
         + "<h3>" + esc(terbaru.judul) + "</h3>"
         + "<p class=\"artikel-meta\">" + fmtTanggal(terbaru.tanggal) + " · " + esc(terbaru.rubrik) + "</p>"
-        + "<div class=\"artikel-isi\">" + isiHTML(terbaru) + "</div>";
+        + "<div class=\"artikel-isi\">" + isiHTML(terbaru) + "</div>"
+        + "<p class=\"artikel-buka\"><a href=\"/tulisan/" + slug(terbaru.judul) + ".html\">Baca di halaman sendiri ↗</a></p>";
     })
     .catch(function () {
       kartu.innerHTML = "<p>Artikel belum tersedia.</p>";
