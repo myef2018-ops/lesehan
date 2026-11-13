@@ -216,7 +216,7 @@
           if (m.arab) isi += "<p class=\"am-ar\" dir=\"rtl\" lang=\"ar\">" + esc(m.arab) + "</p>";
           if (m.terjemahan) isi += "<p class=\"am-tr\">“" + esc(m.terjemahan) + "”" + (m.sumber ? " — " + esc(m.sumber) : "") + "</p>";
           else if (m.sumber) isi += "<p class=\"am-tr\">" + esc(m.sumber) + "</p>";
-          return "<details><summary>" + fmtTanggal(m.tanggal) + " <small>· " + esc(m.tema) + "</small></summary><div>" + isi + "<p class=\"buka-halaman\"><a href=\"/mutiara/" + m.tanggal + "-" + slug(m.tema) + ".html\">Buka halaman mutiara ↗</a></p></div></details>";
+          return "<details><summary>" + fmtTanggal(m.tanggal) + " <small>· " + esc(m.tema) + "</small></summary><div>" + isi + "<p class=\"buka-halaman\"><a href=\"/mutiara/" + m.tanggal + "-" + slug(m.tema) + ".html\">Buka Halaman Mutiara Kata ↗</a></p></div></details>";
         }).join("");
       })
       .catch(function () {
