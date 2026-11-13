@@ -177,6 +177,11 @@
   .rubrik-list-note{color:var(--ink-soft);margin:0}
   .rubrik-articles details{border-top:1px solid var(--line);padding:10px 0}
   .rubrik-articles details:first-of-type{border-top:0}
+  .rubrik-articles .arsip-judul{padding:10px 0;margin:0}
+  .rubrik-articles .arsip-judul + .arsip-judul{border-top:1px solid var(--line)}
+  .rubrik-articles .arsip-judul a{font-weight:700;text-decoration:none;color:var(--ink)}
+  .rubrik-articles .arsip-judul a:hover{text-decoration:underline}
+  .rubrik-articles .arsip-judul .artikel-meta{font-weight:400;font-size:.85rem;color:var(--ink-soft)}
   .rubrik-articles summary{cursor:pointer;font-weight:700;line-height:1.5}
   .rubrik-articles summary .artikel-meta{font-weight:400;font-size:.85rem;color:var(--ink-soft)}
   .rubrik-articles .artikel-isi{margin-top:10px;line-height:1.6;text-align:justify}
@@ -723,7 +728,7 @@
         }
         var out = "<p class=\"rubrik-list-head\">Artikel di rubrik " + esc(nama) + ":</p>";
         punya.forEach(function(t){
-          out += "<details><summary>" + esc(t.judul) + " <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></summary><div class=\"artikel-isi\">" + isiHTML(t) + "<p class=\"artikel-buka\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">Buka halaman artikel ↗</a></p></div></details>";
+          out += "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></p>";
         });
         list.innerHTML = out;
       });
