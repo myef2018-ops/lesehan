@@ -354,10 +354,10 @@
     <div class="wrap">
       <div class="mutiara-panel">
         <h2>Mutiara hari ini</h2>
-        <p class="mutiara-date">Tentang bangkit dari kegagalan · 14 November 2026</p>
-        <p class="mutiara-quote">Kegagalan bukan akhir dari perjalanan — ia adalah pelajaran yang mengajarkanmu bangkit dengan lebih kuat dan lebih bijak dari sebelumnya.</p>
-        <p class="mutiara-ar" dir="rtl" lang="ar">احْرِصْ عَلَى مَا يَنْفَعُكَ وَاسْتَعِنْ بِاللَّهِ وَلَا تَعْجَزْ، وَإِنْ أَصَابَكَ شَيْءٌ فَلَا تَقُلْ: لَوْ أَنِّي فَعَلْتُ كَانَ كَذَا وَكَذَا، وَلَكِنْ قُلْ: قَدَرُ اللَّهِ وَمَا شَاءَ فَعَلَ، فَإِنَّ لَوْ تَفْتَحُ عَمَلَ الشَّيْطَانِ</p>
-        <p class="mutiara-tr">“Bersemangatlah terhadap hal yang bermanfaat bagimu, mohonlah pertolongan kepada Allah, dan janganlah lemah. Jika sesuatu menimpamu, janganlah berkata, 'Seandainya aku berbuat begini, niscaya akan begini dan begitu.' Tetapi katakanlah, 'Ini takdir Allah, dan apa yang Dia kehendaki, Dia lakukan,' karena ucapan 'seandainya' membuka pintu perbuatan setan.” — HR. Muslim</p>
+        <p class="mutiara-date">Tentang menjaga kesehatan · 15 November 2026</p>
+        <p class="mutiara-quote">Jagalah tubuh dan jiwamu dengan sebaik-baiknya — mukmin yang kuat lebih bermanfaat bagi keluarga, agama, dan sesamanya, dan kekuatan itu tumbuh dari kebiasaan baik yang dijaga setiap hari.</p>
+        <p class="mutiara-ar" dir="rtl" lang="ar">الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ وَفِي كُلٍّ خَيْرٌ</p>
+        <p class="mutiara-tr">“Mukmin yang kuat lebih baik dan lebih dicintai Allah daripada mukmin yang lemah, dan pada masing-masing ada kebaikan.” — HR. Muslim</p>
         <div class="mutiara-actions">
           <button class="btn btn-light" type="button" id="salin-kutipan">Salin Kutipan</button>
           <a class="btn btn-outline-w" href="https://www.instagram.com/miftah_jbr" target="_blank" rel="noopener">Lihat di Instagram @miftah_jbr</a>
@@ -637,7 +637,13 @@
     var btn = document.getElementById("salin-kutipan");
     var status = document.getElementById("copy-status");
     if (!btn || !status) return;
-    var text = "Kegagalan bukan akhir dari perjalanan — ia adalah pelajaran yang mengajarkanmu bangkit dengan lebih kuat dan lebih bijak dari sebelumnya.\n\nاحْرِصْ عَلَى مَا يَنْفَعُكَ وَاسْتَعِنْ بِاللَّهِ وَلَا تَعْجَزْ، وَإِنْ أَصَابَكَ شَيْءٌ فَلَا تَقُلْ: لَوْ أَنِّي فَعَلْتُ كَانَ كَذَا وَكَذَا، وَلَكِنْ قُلْ: قَدَرُ اللَّهِ وَمَا شَاءَ فَعَلَ، فَإِنَّ لَوْ تَفْتَحُ عَمَلَ الشَّيْطَانِ\n\n“Bersemangatlah terhadap hal yang bermanfaat bagimu, mohonlah pertolongan kepada Allah, dan janganlah lemah. Jika sesuatu menimpamu, janganlah berkata, 'Seandainya aku berbuat begini, niscaya akan begini dan begitu.' Tetapi katakanlah, 'Ini takdir Allah, dan apa yang Dia kehendaki, Dia lakukan,' karena ucapan 'seandainya' membuka pintu perbuatan setan.” — HR. Muslim\n\n— Mutiara hari ini, Lesehan (lesehan.my.id)";
+    var text = "Jagalah tubuh dan jiwamu dengan sebaik-baiknya — mukmin yang kuat lebih bermanfaat bagi keluarga, agama, dan sesamanya, dan kekuatan itu tumbuh dari kebiasaan baik yang dijaga setiap hari.
+
+الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ وَفِي كُلٍّ خَيْرٌ
+
+“Mukmin yang kuat lebih baik dan lebih dicintai Allah daripada mukmin yang lemah, dan pada masing-masing ada kebaikan.” — HR. Muslim
+
+— Mutiara hari ini, Lesehan (lesehan.my.id)";
     function done(ok){
       status.textContent = ok ? "Kutipan tersalin — silakan dibagikan." : "Tidak dapat menyalin otomatis; tekan dan tahan teks kutipan untuk menyalinnya.";
     }
