@@ -304,7 +304,7 @@
         });
         wadah.innerHTML = rubrikTampil.map(function (r) {
           var items = kelompok[r].map(function (t) {
-            return "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <small>" + fmtTanggal(t.tanggal) + "</small></p>";
+            return "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <small>Miftah Arifin · " + fmtTanggal(t.tanggal) + "</small></p>";
           }).join("");
           return "<h3>" + esc(r) + "</h3>" + items;
         }).join("");

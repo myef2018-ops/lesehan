@@ -726,7 +726,7 @@
         }
         var out = "<p class=\"rubrik-list-head\">Artikel di rubrik " + esc(nama) + ":</p>";
         punya.forEach(function(t){
-          out += "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></p>";
+          out += "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <span class=\"artikel-meta\">— Miftah Arifin · " + fmtTanggal(t.tanggal) + "</span></p>";
         });
         out += "<p class=\"artikel-buka\"><a href=\"/rubrik/" + slug(nama) + ".html\">Lihat halaman rubrik →</a></p>";
         list.innerHTML = out;
@@ -734,7 +734,7 @@
       var terbaru = daftar[daftar.length - 1];
       kartu.innerHTML = "<p class=\"artikel-kicker\">Artikel Terbaru</p>"
         + "<h3>" + esc(terbaru.judul) + "</h3>"
-        + "<p class=\"artikel-meta\">" + fmtTanggal(terbaru.tanggal) + " · " + esc(terbaru.rubrik) + "</p>"
+        + "<p class=\"artikel-meta\">Oleh Miftah Arifin · " + fmtTanggal(terbaru.tanggal) + " · " + esc(terbaru.rubrik) + "</p>"
         + "<div class=\"artikel-isi\">" + isiHTML(terbaru) + "</div>"
         + "<p class=\"artikel-buka\"><a href=\"/tulisan/" + slug(terbaru.judul) + ".html\">Baca di halaman sendiri ↗</a></p>";
     })
