@@ -317,12 +317,12 @@
       <div class="nav-item">
         <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">Rubrik <span class="nav-chev" aria-hidden="true">▾</span></button>
         <ul class="drop-menu">
-          <li><a href="#rubrik" data-open-rubrik="0">Esai Ringan</a></li>
-          <li><a href="#rubrik" data-open-rubrik="1">Opini</a></li>
-          <li><a href="#rubrik" data-open-rubrik="2">Refleksi</a></li>
-          <li><a href="#rubrik" data-open-rubrik="3">Catatan Kampus</a></li>
-          <li><a href="#rubrik" data-open-rubrik="4">Kosa Kata</a></li>
-          <li><a href="#rubrik" data-open-rubrik="5">Cerita Sehari-hari</a></li>
+          <li><a href="/rubrik/esai-ringan.html">Esai Ringan</a></li>
+          <li><a href="/rubrik/opini.html">Opini</a></li>
+          <li><a href="/rubrik/refleksi.html">Refleksi</a></li>
+          <li><a href="/rubrik/catatan-kampus.html">Catatan Kampus</a></li>
+          <li><a href="/rubrik/kosa-kata.html">Kosa Kata</a></li>
+          <li><a href="/rubrik/cerita-sehari-hari.html">Cerita Sehari-hari</a></li>
         </ul>
       </div>
     </nav>
@@ -602,15 +602,6 @@
     document.addEventListener("keydown", function(ev){
       if (ev.key === "Escape") closeAll(null);
     });
-    /* Sub menu rubrik: sekalian buka kartu rubrik yang dipilih */
-    document.querySelectorAll("[data-open-rubrik]").forEach(function(a){
-      a.addEventListener("click", function(){
-        var idx = parseInt(a.getAttribute("data-open-rubrik"), 10);
-        var cards = document.querySelectorAll(".rubrik");
-        var card = cards[idx];
-        if (card && card.getAttribute("aria-expanded") !== "true") card.click();
-      });
-    });
   })();
 
   /* Rubrik interaktif — penjelasan muncul di dalam kartu yang sama */
@@ -736,6 +727,7 @@
         punya.forEach(function(t){
           out += "<p class=\"arsip-judul\"><a href=\"/tulisan/" + slug(t.judul) + ".html\">" + esc(t.judul) + "</a> <span class=\"artikel-meta\">— " + fmtTanggal(t.tanggal) + "</span></p>";
         });
+        out += "<p class=\"artikel-buka\"><a href=\"/rubrik/" + slug(nama) + ".html\">Lihat halaman rubrik →</a></p>";
         list.innerHTML = out;
       });
       var terbaru = daftar[daftar.length - 1];
