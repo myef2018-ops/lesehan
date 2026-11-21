@@ -734,7 +734,7 @@
       var terbaru = daftar[daftar.length - 1];
       kartu.innerHTML = "<p class=\"artikel-kicker\">Artikel Terbaru</p>"
         + "<h3>" + esc(terbaru.judul) + "</h3>"
-        + "<p class=\"artikel-meta\">Oleh Miftah Arifin · " + fmtTanggal(terbaru.tanggal) + " · " + esc(terbaru.rubrik) + "</p>"
+        + "<p class=\"artikel-meta\">Oleh Miftah Arifin · " + esc(terbaru.rubrik) + "</p>"
         + "<div class=\"artikel-isi\">" + isiHTML(terbaru) + "</div>"
         + "<p class=\"artikel-buka\"><a href=\"/tulisan/" + slug(terbaru.judul) + ".html\">Baca di halaman sendiri ↗</a></p>";
     })
